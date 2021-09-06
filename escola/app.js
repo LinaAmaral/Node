@@ -21,14 +21,14 @@ app.use(express.static("public"));
 app.get("/", (req, res) => {
     res.send("Página inicial");
 });
-app.get("/alunos", (req, res) => {
 
-    alunos.find({}, (err, elementos) => {
+app.get("/alunos", (req,res)=>{
 
+    alunos.find({},(err,elementos)=>{
         if (err)
             return res.status(500).send("Erro ao consultar o banco");
+    res.render("alunos", {itens:elementos});
     });
-    res.render("alunos", { itens: elementos });
 });
 
 

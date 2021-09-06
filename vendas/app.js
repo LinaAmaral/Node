@@ -30,10 +30,10 @@ app.get("/", (req, res) => {
 
 //criando uma rota para listar os produtos cadastrados
 app.get("/produtos", (req, res) => {
-    let produtos = Produtos.find({},(err, elemento)=>{
-        if(err)
+    let produtos = Produtos.find({}, (err, elemento) => {
+        if (err)
             return res.status(500).send("Erro ao consultar Produto");
-        res.render("produtos",{item:elemento});
+        res.render("produtos", { item: elemento });
     })
 });
 //esse produtos da linha 36 em vermelho é a rota
@@ -45,26 +45,52 @@ app.get("/cadastrarProdutos", (req, res) => {
 })
 
 //aqui eu vou usar o posto para guardar as infomrações do formulário no banco de dados
-app.post("/cadastrarProdutos", (req,res)=>{
+app.post("/cadastrarProdutos", (req, res) => {
     let produto = new Produtos(); //minha variável está recebendo o objeto do tipo produtos - linha 10
     produto.nome = req.body.nome;
     produto.vlUnit = req.body.valor;
     produto.codigoBarras = req.body.codBarras;
-    produto.save((err)=>{
-        if(err)
+    produto.save((err) => {
+        if (err)
             return res.status(500).send("Erro ao cadastrar")
         return res.redirect("/produtos");
     })
 })
 
-app.get("/deletarProduto/:id", (req,res)=>{
+app.get("/deletarProduto/:id", (req, res) => {
     var chave = req.params.id;
-    Produtos.deleteOne({_id:chave},(err,result)=>{
-
-        if(err)
-        return res.status(500).send("Erro ao excluir registro")
-    res.redirect("/produtos")
+    Produtos.deleteOne({ _id: chave }, (err, result) => {
+        if (err)
+            return res.status(500).send("Erro ao excluir registro")
+        res.redirect("/produtos")
     })
+})
+//essa rota serve para trazer nos campos do form o que já está salvo no bd para ser alterado
+app.get("/editarProduto/:id", (req, res) => {
+    var id = req.params.id;
+    Produtos.findById(id, (err, produto) => {
+        if (err)
+            return res.status(500).send("Erro ao conectar o banco de dados");
+        res.render("formEditar", { item: produto })
+    });
+});
+//essa rota é para salvar as alterações no banco de dados
+app.post("/editarProduto", (req, res) => {
+    var id = req.body.id;
+    Produtos.findById(id, (err, produto) => {
+        if (err)
+            return res.status(500).send("Erro ao conectar o banco de dados");
+
+        produto.nome = req.body.nome;
+        produto.vlUnit = req.body.valor;
+        produto.codigoBarras = req.body.codBarras;
+
+        produto.save(err => {
+            if (err)
+                return res.status(500).send("Erro ao salvar alterações");
+            res.redirect("/produtos");
+        });
+    });
 })
 
 app.listen(porta, () => {

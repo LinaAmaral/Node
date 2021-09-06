@@ -28,6 +28,7 @@
                             <th>Nome</th>
                             <th>Valor</th>
                             <th>Código</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +44,7 @@
                                     <%= produto.codigoBarras %>
                                 </td>
                                 <td>
+                                    <a href="editarProduto/<%= produto._id%>" class="btn btn-warning">Editar</a>
                                     <a href="deletarProduto/<%= produto._id%>" class="btn btn-danger">Deletar</a>
                                 </td>
                             </tr>
