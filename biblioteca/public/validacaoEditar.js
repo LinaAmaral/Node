@@ -23,9 +23,9 @@ function validarNumero(campo, valor, i) {
 function acionaBotao() {
 
     if (estado.some(elem => elem == false)) {
-        $('.btn_enviar').prop('disabled', true);
+        $('#btn_alterar').prop('disabled', true);
     } else {
-        $('.btn_enviar').prop('disabled', false);    
+        $('#btn_alterar').prop('disabled', false);    
     }
 }
 
