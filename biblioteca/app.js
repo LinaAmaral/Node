@@ -19,10 +19,26 @@ app.set("views", __dirname, "/views");
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(express.static('public'));
-	
 
-app.get("/", (req, res) => {
-    res.render("index");
+
+app.get("/pesquisa", (req, res) => {
+    if (req.query.buscar) {
+
+        Livros.find({titulo:{$regex:".*"+req.query.buscar+".*"}}, (err, documento) => {
+            if (err) {
+                return res.status(500).send("Erro ao consultar banco de dados");
+            } else {
+                res.render("livros", { livro:documento});
+
+            }
+        })
+    }else{
+        Livros.find({}, (err, livro) => {
+            if (err)
+                return res.status(500).send("Erro ao consultar banco de dados");
+            res.render("livros", { livro: livro });
+        })
+    }
 });
 app.get("/livros", (req, res) => {
     Livros.find({}, (err, livro) => {
@@ -75,7 +91,7 @@ app.post("/editarLivro", (req, res) => {
         livro.editora = req.body.editora;
         livro.volume = req.body.volume;
 
-        if(estado == 5){
+        if (estado == 5) {
             livro.save(err => {
                 if (err)
                     return res.status(500).send("Erro ao salvar alterações");
@@ -84,6 +100,7 @@ app.post("/editarLivro", (req, res) => {
         }
     });
 });
+
 app.listen(porta, () => {
     console.log("Servidor rodando na porta " + porta);
 });
