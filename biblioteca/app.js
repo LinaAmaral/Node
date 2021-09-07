@@ -22,7 +22,7 @@ app.use(express.static('public'));
 	
 
 app.get("/", (req, res) => {
-    res.send("Página inicial");
+    res.render("index");
 });
 app.get("/livros", (req, res) => {
     Livros.find({}, (err, livro) => {

@@ -7,37 +7,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Editar Cadastro Livro</title>
+    <link rel="stylesheet" href="estilo.css">
+    <title>Alterar cadastro</title>
 </head>
 
 <body>
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1 class="mt-5">Cadastrar Livro</h1>
+                <h1 class="mt">Alterar cadastro</h1>
                 <form action="/editarLivro" method="POST">
                     <div class="form-group">
                         <label for="titulo">Título</label>
-                        <input class="form-control" type="text"  id="titulo" name="titulo" value="<%= livro.titulo %>">
+                        <input class="form-control" type="text" id="titulo" name="titulo" value="<%= livro.titulo %>"
+                            onblur="validarCampo(this,value,0)" required>
                     </div>
                     <div class="form-group">
                         <label for="autor">Autor</label>
-                        <input type="text" class="form-control" id="autor" name="autor" value="<%= livro.autor %>">
+                        <input type="text" class="form-control" id="autor" name="autor" value="<%= livro.autor %>"
+                            onblur="validarCampo(this,value,1)" required>
                     </div>
                     <div class="form-group">
                         <label for="isbn">ISBN</label>
-                        <input type="number" class="form-control" id="isbn" name="isbn" value="<%= livro.isbn %>">
+                        <input type="number" class="form-control" id="isbn" name="isbn" value="<%= livro.isbn %>"
+                            onblur="validarNumero(this,value,2)" required>
                     </div>
                     <div class="form-group">
                         <label for="editora">Editora</label>
-                        <input type="text" class="form-control" id="editora" name="editora" value="<%= livro.editora %>">
+                        <input type="text" class="form-control" id="editora" name="editora" value="<%= livro.editora %>"
+                            onblur="validarCampo(this,value,3)" required>
                     </div>
                     <div class="form-group">
                         <label for="volume">Volume</label>
-                        <input type="number" class="form-control" id="volume" name="volume" value="<%= livro.volume %>">
+                        <input type="number" class="form-control" id="volume" name="volume" value="<%= livro.volume %>"
+                            onblur="validarNumero(this,value,4)" required>
                     </div>
                     <input type="hidden" name="id" value="<%= livro._id %>">
-                    <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                    <button type="submit" class="btn btn_enviar btn-primary ">Salvar alteração</button>
+                    <a href="/livros" class="btn btn-success">Voltar</a>
                 </form>
             </div>
         </div>
@@ -52,5 +59,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+    <script src="validacaoEditar.js"></script>
 </body>
+
 </html>

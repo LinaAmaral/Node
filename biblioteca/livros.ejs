@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="estilo.css">
     <title>Acervo</title>
 </head>
 
@@ -15,14 +16,15 @@
         <div class="row">
             <div class="col">
                 <div class="row mt-5">
-                    <div class="col-6">
+                    <div class="col-5">
                         <h1>Acervo</h1>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6  text-right">
                         <a class="btn btn-primary" href="/cadastrarLivro">Inserir novo Livro</a>
+                        <a class="btn btn-success" href="/">Voltar</a>
                     </div>
                 </div>
-                <table class="table table-hover">
+                <table class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th>Título</th>
@@ -52,7 +54,7 @@
                                     <%= livro.volume %>
                                 </td>
                                 <td>
-                                    <a href="editarLivro/<%= livro._id%>" class="btn btn-warning">Editar</a>
+                                    <a href="editarLivro/<%= livro._id%>" class="btn btn-warning text-right">Editar</a>
                                     <a href="deletarLivro/<%= livro._id%>" class="btn btn-danger">Deletar</a>
                                 </td>
                             </tr>
