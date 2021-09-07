@@ -5,3 +5,20 @@ input[type=number] {
    -moz-appearance: textfield;
    appearance: textfield;
 }
+body {
+    background-color: #F2F2F2;
+  }
+
+  a {
+    color: #BF7D65;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: none;
+    color: #D9ADAD;
+  }
+
+  .titulo, h1 {
+    color: #544859;
+  }

@@ -20,6 +20,9 @@ app.use(express.urlencoded());
 app.use(express.json());
 app.use(express.static('public'));
 
+app.get("/",(req,res)=>{
+    res.render("index");
+});
 
 app.get("/pesquisa", (req, res) => {
     if (req.query.buscar) {
@@ -29,15 +32,14 @@ app.get("/pesquisa", (req, res) => {
                 return res.status(500).send("Erro ao consultar banco de dados");
             } else {
                 res.render("livros", { livro:documento});
-
             }
-        })
+        });
     }else{
         Livros.find({}, (err, livro) => {
             if (err)
                 return res.status(500).send("Erro ao consultar banco de dados");
             res.render("livros", { livro: livro });
-        })
+        });
     }
 });
 app.get("/livros", (req, res) => {
