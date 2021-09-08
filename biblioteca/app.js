@@ -20,21 +20,21 @@ app.use(express.urlencoded());
 app.use(express.json());
 app.use(express.static('public'));
 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     res.render("index");
 });
 
 app.get("/pesquisa", (req, res) => {
     if (req.query.buscar) {
 
-        Livros.find({titulo:{$regex:".*"+req.query.buscar+".*"}}, (err, documento) => {
+        Livros.find({ $or: [{ titulo: req.query.buscar }, { autor: req.query.buscar }, { editora: req.query.buscar }] }, (err, documento) => {
             if (err) {
                 return res.status(500).send("Erro ao consultar banco de dados");
             } else {
-                res.render("livros", { livro:documento});
+                res.render("livros", { livro: documento });
             }
         });
-    }else{
+    } else {
         Livros.find({}, (err, livro) => {
             if (err)
                 return res.status(500).send("Erro ao consultar banco de dados");
@@ -43,11 +43,14 @@ app.get("/pesquisa", (req, res) => {
     }
 });
 app.get("/livros", (req, res) => {
-    Livros.find({}, (err, livro) => {
-        if (err)
-            return res.status(500).send("Erro ao consultar banco de dados");
-        res.render("livros", { livro: livro });
-    })
+    console.log(req.fresh)
+    if (!(req.fresh)) {
+        Livros.find({}, (err, livro) => {
+            if (err)
+                return res.status(500).send("Erro ao consultar banco de dados");
+            res.render("livros", { livro: livro });
+        })
+    }
 });
 app.get("/cadastrarLivro", (req, res) => {
     res.render("form_livros");
