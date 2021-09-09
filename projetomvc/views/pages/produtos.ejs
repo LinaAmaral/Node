@@ -8,7 +8,7 @@
                     <h1>Lista produtos</h1>
                 </div>
                 <div class="col-6">
-                    <a class="btn btn-primary" href="/cadastrarProdutos">Inserir novo produtos</a>
+                    <a class="btn btn-primary" href="/produtos/cadastrarProdutos">Inserir novo produtos</a>
                 </div>
             </div>
             <table class="table table-hover">
@@ -33,8 +33,8 @@
                                 <%= produto.codigoBarras %>
                             </td>
                             <td>
-                                <a href="editarProduto/<%= produto._id%>" class="btn btn-warning">Editar</a>
-                                <a href="deletarProduto/<%= produto._id%>" class="btn btn-danger">Deletar</a>
+                                <a href="/produtos/editarProduto/<%= produto._id%>" class="btn btn-warning">Editar</a>
+                                <a href="/produtos/deletarProduto/<%= produto._id%>" class="btn btn-danger">Deletar</a>
                             </td>
                         </tr>
                         <% }) %>

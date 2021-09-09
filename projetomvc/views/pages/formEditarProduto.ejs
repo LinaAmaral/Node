@@ -1,0 +1,27 @@
+<%- include('../partials/header')%>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="mt-5">Editar Produto</h1>
+            <form action="/produtos/editarProduto" method="POST">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input class="form-control" type="text" id="nome" name="nome" value="<%= item.nome %>">
+                </div>
+                <div class="form-group">
+                    <label for="valor">Valor Unitário</label>
+                    <input type="number" step="0.01" class="form-control" id="valor" name="valor"
+                        value="<%= item.vlUnit %>">
+                </div>
+                <div class="form-group">
+                    <label for="codigo">Código de Barras</label>
+                    <input type="text" class="form-control" id="codBarras" name="codBarras"
+                        value="<%= item.codigoBarras %>">
+                </div>
+                <input type="hidden" name="id" value="<%= item._id %>">
+                <button class="btn btn-primary">Salvar alterações</button>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include("../partials/footer")%>

@@ -80,11 +80,9 @@ app.post("/editarProduto", (req, res) => {
     Produtos.findById(id, (err, produto) => {
         if (err)
             return res.status(500).send("Erro ao conectar o banco de dados");
-
         produto.nome = req.body.nome;
         produto.vlUnit = req.body.valor;
         produto.codigoBarras = req.body.codBarras;
-
         produto.save(err => {
             if (err)
                 return res.status(500).send("Erro ao salvar alterações");
