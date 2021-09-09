@@ -26,7 +26,6 @@ app.get("/", (req, res) => {
 
 app.get("/pesquisa", (req, res) => {
     if (req.query.buscar) {
-
         Livros.find({ $or: [{ titulo: req.query.buscar }, { autor: req.query.buscar }, { editora: req.query.buscar }] }, (err, documento) => {
             if (err) {
                 return res.status(500).send("Erro ao consultar banco de dados");
@@ -42,6 +41,7 @@ app.get("/pesquisa", (req, res) => {
         });
     }
 });
+
 app.get("/livros", (req, res) => {
     console.log(req.fresh)
     if (!(req.fresh)) {
