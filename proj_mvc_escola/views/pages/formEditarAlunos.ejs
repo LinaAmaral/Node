@@ -1,0 +1,34 @@
+<%- include('../partials/header')%>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="mt-5">Cadastrar Aluno</h1>
+            <form action="/alunos/editarAluno" method="POST">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input class="form-control" type="text" id="nome" name="nome" value="<%=item.nome%>">
+                </div>
+                <div class="form-group">
+                    <label for="data_nascimento">Data de Nascimento</label>
+                    <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" value="<%=item.data_nascimento%>">
+                </div>
+                <div class="form-group">
+                    <label for="turma">Turma</label>
+                    <select class="form-control" id="turma" name="turma" value="<%=item.turma%>">
+                        <option value="Turma A">Turma A</option>
+                        <option value="Turma B">Turma B</option>
+                        <option value="Turma C">Turma C</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="matricula">Matrícula</label>
+                    <input type="number" class="form-control" id="matricula" name="matricula" value="<%=item.matricula%>">
+                </div>
+                <input type="hidden" name="id" value="<%= item._id %>">
+
+                <button type="submit" class="btn btn-primary">Alterar dados</button>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer')%>
