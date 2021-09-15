@@ -2,7 +2,7 @@ var express = require("express");
 var mongoose = require("mongoose");
 
 const app = express();
-const porta = 3000;
+const porta = 8000;
 
 mongoose.connect("mongodb+srv://lina_amaral:lina_amaral@cluster0.jklru.mongodb.net/biblioteca?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
 
@@ -14,6 +14,12 @@ const Livros = mongoose.model("livros", {
     volume: Number,
 })
 
+const Usuarios = mongoose.model("usuario", {
+    nome: String,
+    senha: String,
+    tipo_usuario: String,
+})
+
 app.set("view engine", "ejs");
 app.set("views", __dirname, "/views");
 app.use(express.urlencoded());
@@ -23,6 +29,43 @@ app.use(express.static('public'));
 app.get("/", (req, res) => {
     res.render("index");
 });
+
+app.get("/cadastrarUsuario", (req, res) => {
+    res.render("form_usuario", { tipo_usuario: req.query.tipo_usuario });
+})
+
+app.get("/login", (req, res) => {
+    res.render("form_login");
+})
+app.post("/login", (req, res) => {
+    let nome = req.body.nome;
+    let senha = req.body.senha;
+
+    Usuarios.findOne({ $and: [{ nome: nome }, { senha: senha }] }, (err, usuario) => {
+        console.log(usuario.tipo_usuario);
+        if (err)
+            return res.status(500).send("Erro ao conectar no banco de dados");
+
+        if (usuario)
+            res.redirect("/livros?tipo="+usuario.tipo_usuario);
+        else {
+            res.send("usuário não cadastrado");
+        }
+    })
+})
+
+app.post("/cadastrarUsuario", (req, res) => {
+    let usuario = new Usuarios();
+    usuario.nome = req.body.nome;
+    usuario.senha = req.body.senha;
+    usuario.tipo_usuario = req.body.tipo_usuario;
+
+    usuario.save((err) => {
+        if (err)
+            return res.status(500).send("Erro ao cadastrar livro")
+        res.send("Usuário cadastrado com sucesso");
+    })
+})
 
 app.get("/pesquisa", (req, res) => {
     if (req.query.buscar) {
@@ -37,18 +80,17 @@ app.get("/pesquisa", (req, res) => {
         Livros.find({}, (err, livro) => {
             if (err)
                 return res.status(500).send("Erro ao consultar banco de dados");
-            res.render("livros", { livro: livro });
+            res.render("livros");
         });
     }
 });
 
 app.get("/livros", (req, res) => {
-    console.log(req.fresh)
     if (!(req.fresh)) {
         Livros.find({}, (err, livro) => {
             if (err)
                 return res.status(500).send("Erro ao consultar banco de dados");
-            res.render("livros", { livro: livro });
+            res.render("livros", { livro: livro, tipo: req.query.tipo });
         })
     }
 });
@@ -109,4 +151,3 @@ app.post("/editarLivro", (req, res) => {
 app.listen(porta, () => {
     console.log("Servidor rodando na porta " + porta);
 });
-

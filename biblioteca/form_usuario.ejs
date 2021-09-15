@@ -7,45 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <title>Cadastro de Aluno</title>
+    <link rel="stylesheet" href="/estilo.css">
+    <title>Cadastro usuário</title>
 </head>
 
 <body>
-
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1 class="mt-5">Cadastrar Aluno</h1>
-                <form action="/cadastrarAlunos" method="POST">
+                <h1 class="mt-5 text-center text-uppercase">Cadastrar usuário</h1>
+                <form action="/cadastrarUsuario" method="POST">
                     <div class="form-group">
                         <label for="nome">Nome</label>
-                        <input class="form-control" type="text" id="nome" name="nome" placeholder="nome do produto" required>
+                        <input class="form-control" type="text" id="nomr" name="nome" required>
                     </div>
                     <div class="form-group">
-                        <label for="data_nascimento">Data de Nascimento</label>
-                        <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" required>
+                        <label for="autor">Senha</label>
+                        <input type="text" class="form-control" id="senha" name="senha" required>
                     </div>
-                    <div class="form-group">
-                        <label for="turma">Turma</label>
-                        <select class="form-control" id="turma" name="turma" required>
-                            <option value="">Escolha</option>
-                            <option value="A">Turma A</option>
-                            <option value="B">Turma B</option>
-                            <option value="C">Turma C</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="matricula">Matrícula</label>
-                        <input type="number" class="form-control" id="matricula" name="matricula">
-                    </div>
+                        <input type="hidden" id="tipo_usuario" name="tipo_usuario" value="<%=tipo_usuario%>">
+                    <button type="submit" id="btn_enviar" class="btn btn-primary">Salvar Registro</button>
+                    <a href="/" class="btn btn-success">Voltar</a>
 
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
                 </form>
             </div>
         </div>
     </div>
-
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -56,6 +43,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+    <script src="/validacao.js"></script>
 </body>
 
 </html>
